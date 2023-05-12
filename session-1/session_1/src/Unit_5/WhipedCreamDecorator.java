@@ -15,5 +15,5 @@ public class WhipedCreamDecorator extends DrinkItemDecorator {
     public double getPrice() {
         return this.item.getPrice() + 0.5;
     }
-
+    
 }
