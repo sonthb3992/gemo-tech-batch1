@@ -1,6 +1,6 @@
 package Unit_5;
 
-public class MilkDecorator extends MenuItemDecorator {
+public class MilkDecorator extends DrinkItemDecorator {
 
     private boolean isAlmond;
 

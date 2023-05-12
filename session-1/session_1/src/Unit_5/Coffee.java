@@ -8,6 +8,6 @@ public class Coffee extends DrinkItem {
 
     @Override
     public String getDesc() {
-        return "Coffee";
+        return String.format("Coffee, %s, size %s", this.style, this.size);
     }
 }

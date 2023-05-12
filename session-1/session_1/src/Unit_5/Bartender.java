@@ -9,15 +9,69 @@ public class Bartender {
     private IMenuItem item;
     private Scanner scanner = new Scanner(System.in);
 
-    public void prepareItem() {
 
-        if (!AskForItem())
+
+    public void prepareBreakfast() {
+        if (!Breakfast_AskForItem())
+            return;
+        
+        System.out.println(this.item.getDesc());
+        System.out.println(this.item.getPrice());
+    }
+
+    private boolean Breakfast_AskForItem() {
+        boolean stop = false;
+        while (!stop) {
+            System.out.println("Which Breakfast_AskForItem would you like?");
+            System.out.println("0: Maybe next time");
+            System.out.println("1: Sandwich");
+            System.out.println("2: Bagel");
+
+            int selected = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch (selected) {
+                case 0:
+                    return false;
+                case 1:
+                    this.item = new Sandwich();
+                    Breakfast_AskForSandwichTopping();
+                    return true;
+                case 2:
+                    this.item = new Bagel();
+                    Breakfast_AskForBagelTopping();
+                    return true;
+                default:
+            }
+        }
+        return false;
+    }
+
+    private void Breakfast_AskForBagelTopping() {
+        System.out.println("Would you like to have your bagel with cheese cream (instead of butter) (y/n)?");
+        String response = scanner.nextLine();   
+        var bagel = new BagelDecorator(this.item);
+        bagel.setHasCheese(response.equalsIgnoreCase("y"));
+        this.item = bagel;
+    }
+
+    private void Breakfast_AskForSandwichTopping() {
+        System.out.println("Would you like to have your sandwich with turkey (instead of egg) (y/n)?");
+        String response = scanner.nextLine();   
+        var sandwich = new SandwichDecorator(this.item);
+        sandwich.setHasTurkey(response.equalsIgnoreCase("y"));
+        this.item = sandwich;
+    }
+
+    public void prepareDrink() {
+
+        if (!AskForItem_Drink())
             return;
 
-        if (!AskForServingStyle())
+        if (!AskForServingStyle_Drink())
             return;
 
-        if (!AskForServingSize())
+        if (!AskForServingSize_Drink())
             return;
 
         this.AskForTopping_WhippedCream();
@@ -29,8 +83,7 @@ public class Bartender {
 
     }
 
-    private boolean AskForItem() {
-        Scanner scanner = new Scanner(System.in);
+    private boolean AskForItem_Drink() {
         boolean stop = false;
         while (!stop) {
             System.out.println("Which drink would you like?");
@@ -51,11 +104,15 @@ public class Bartender {
                 default:
             }
         }
-        scanner.close();
         return false;
     }
 
-    private boolean AskForServingStyle() {
+    private boolean AskForServingStyle_Drink() {
+        if (!(this.item instanceof DrinkItem))
+            return false;
+
+        var drink = (DrinkItem)this.item;
+
         boolean stop = false;
         while (!stop) {
             System.out.println("How would you like your drink to be served?");
@@ -66,11 +123,11 @@ public class Bartender {
             int selected = scanner.nextInt() - 1;
             scanner.nextLine();
             if (selected >= 0 && selected < Enums.DrinkServingStyle.values().length) {
-                this.item = new ServingStyleDecorator(this.item, DrinkServingStyle.values()[selected]);
+                drink.setStyle(DrinkServingStyle.values()[selected]);
                 return true;
             }
             if (selected == -1) {
-                System.out.println("Customer don't1 want to buy :(");
+                System.out.println("Customer don't want to buy :(");
                 return false;
             }
         }
@@ -78,7 +135,12 @@ public class Bartender {
         return false;
     }
 
-    private boolean AskForServingSize() {
+    private boolean AskForServingSize_Drink() {
+        if (!(this.item instanceof DrinkItem))
+        return false;
+
+        var drink = (DrinkItem)this.item;
+
         boolean stop = false;
         while (!stop) {
             System.out.println("Which size would you like?");
@@ -90,7 +152,7 @@ public class Bartender {
             scanner.nextLine();
             if (selected >= 0 && selected < Enums.DrinkSize.values().length) {
                 try {
-                    this.item = new DrinkSizeDecorator(this.item, DrinkSize.values()[selected]);
+                    drink.setSize(DrinkSize.values()[selected]);
                     return true;
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -124,17 +186,17 @@ public class Bartender {
     }
 
     private void AskForTopping_ChocolateSauce() {
-
         // if not hot drink, don't ask
         try {
-            ServingStyleDecorator s = (ServingStyleDecorator) this.item;
-            if (s.getStyle() != DrinkServingStyle.Hot) {
+            DrinkItem drink = (DrinkItem)this.item;
+            if (drink.getStyle() != DrinkServingStyle.Hot) {
                 return;
             }
         } catch (Exception e) {
+            System.out.println((e.getMessage()));
             return;
         }
-
+       
         System.out.println("Would you like to add Chocolate Sauce, 2 first pumps is free (y/n)?");
         String response = scanner.nextLine();
         if (response.equalsIgnoreCase("y")) {

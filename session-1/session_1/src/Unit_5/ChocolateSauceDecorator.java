@@ -1,6 +1,6 @@
 package Unit_5;
 
-public class ChocolateSauceDecorator extends MenuItemDecorator {
+public class ChocolateSauceDecorator extends DrinkItemDecorator {
 
     private int pumps;
 

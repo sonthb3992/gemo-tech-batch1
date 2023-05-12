@@ -8,7 +8,7 @@ public class MilkTea extends DrinkItem {
 
     @Override
     public String getDesc() {
-        return "Milk tea";
+        return String.format("Coffee, %s, size %s", this.style, this.size);
     }
 
 }

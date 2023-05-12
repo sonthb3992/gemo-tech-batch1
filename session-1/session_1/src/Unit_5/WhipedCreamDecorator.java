@@ -1,6 +1,6 @@
 package Unit_5;
 
-public class WhipedCreamDecorator extends MenuItemDecorator {
+public class WhipedCreamDecorator extends DrinkItemDecorator {
 
     public WhipedCreamDecorator(IMenuItem item) {
         super(item);
