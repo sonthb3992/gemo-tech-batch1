@@ -4,14 +4,14 @@ public class ChocolateSauceDecorator extends DrinkItemDecorator {
 
     private int pumps;
 
-    public ChocolateSauceDecorator(IMenuItem item, int pumps) {
+    public ChocolateSauceDecorator(IDrinkItem item, int pumps) {
         super(item);
         this.pumps = pumps;
     }
 
     @Override
     public String getDesc() {
-        return String.format("%s, %d pumps of chocolate sauce", this.item.getDesc(), this.pumps);
+        return String.format("%s, chocolate sauce (%d)", this.item.getDesc(), this.pumps);
     }
 
     @Override

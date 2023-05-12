@@ -3,10 +3,11 @@ package Unit_5;
 import Enums.DrinkServingStyle;
 import Enums.DrinkSize;
 
-public abstract class DrinkItem implements IMenuItem {
+public abstract class DrinkItem implements IDrinkItem {
     protected double basePrice;
 
-    protected Enums.DrinkServingStyle style = DrinkServingStyle.Hot;
+    protected Enums.DrinkServingStyle style;
+    @Override
     public Enums.DrinkServingStyle getStyle() {
         return style;
     }
@@ -15,8 +16,9 @@ public abstract class DrinkItem implements IMenuItem {
         this.style = style;
     }
 
-    protected Enums.DrinkSize size = DrinkSize.S;
+    protected Enums.DrinkSize size;
 
+    @Override
     public Enums.DrinkSize getSize() {
         return size;
     }
@@ -35,5 +37,4 @@ public abstract class DrinkItem implements IMenuItem {
     public double getPrice() {
         return this.basePrice + this.size.getUpSizePrice() + this.style.getAddedPrice();
     }
-
 }

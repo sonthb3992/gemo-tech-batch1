@@ -1,10 +1,26 @@
 package Unit_5;
 
-public abstract class DrinkItemDecorator extends DrinkItem {
+import Enums.DrinkServingStyle;
+import Enums.DrinkSize;
 
-    protected IMenuItem item;
-    public DrinkItemDecorator(IMenuItem item) {
+public abstract class DrinkItemDecorator implements IDrinkItem {
+
+    protected IDrinkItem item;
+
+    public DrinkItemDecorator(IDrinkItem item) {
         super();
         this.item = item;
     }
+
+    @Override
+    public DrinkSize getSize() {
+        return this.item.getSize();
+    }
+
+    @Override
+    public DrinkServingStyle getStyle() {
+        return this.item.getStyle();
+    }
+
+
 }

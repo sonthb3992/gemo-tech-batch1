@@ -4,7 +4,7 @@ public class MilkDecorator extends DrinkItemDecorator {
 
     private boolean isAlmond;
 
-    public MilkDecorator(IMenuItem item, boolean isAlmond) {
+    public MilkDecorator(IDrinkItem item, boolean isAlmond) {
         super(item);
         this.isAlmond = isAlmond;
     }

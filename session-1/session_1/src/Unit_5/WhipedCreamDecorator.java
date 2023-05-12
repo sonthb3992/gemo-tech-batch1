@@ -2,7 +2,7 @@ package Unit_5;
 
 public class WhipedCreamDecorator extends DrinkItemDecorator {
 
-    public WhipedCreamDecorator(IMenuItem item) {
+    public WhipedCreamDecorator(IDrinkItem item) {
         super(item);
     }
 

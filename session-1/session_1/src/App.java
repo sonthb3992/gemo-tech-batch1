@@ -25,6 +25,7 @@ public class App {
         // }
 
         Bartender bartender = new Bartender();
-        bartender.prepareBreakfast();
+        bartender.TakingOrder();
+        bartender.PrintingBill();
     }
 }
